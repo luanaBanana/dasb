@@ -1,50 +1,143 @@
 library(ggplot2)
 
-View(mpg)
+View(studPerf)
 
-plot <- ggplot(data = mpg, mapping = aes(x = mpg$hwy))
-plot + geom_histogram()
+mathPlot <- ggplot(data = studPerf, mapping = aes(x = studPerf$`math score`))
+mathPlot + geom_histogram()
+
+readPlot <- ggplot(data = studPerf, mapping = aes(x = studPerf$`reading score`))
+readPlot + geom_histogram()
+
+writePlot <- ggplot(data = studPerf, mapping = aes(x = studPerf$`writing score`))
+writePlot + geom_histogram()
   
   
-plot <- ggplot(data = mpg, mapping = aes(x = mpg$hwy))  
-plot + geom_violin(mapping = aes(y = mpg$displ))
+plot <- ggplot(data = studPerf, mapping = aes(x = studPerf$`gender`))  
+plot + geom_violin(mapping = aes(y = studPerf$`math score`))
+
+plot <- ggplot(data = studPerf, mapping = aes(x = studPerf$`lunch`))  
+plot + geom_violin(mapping = aes(y = studPerf$`math score`))
+
+plot <- ggplot(data = studPerf, mapping = aes(x = studPerf$`race/ethnicity`))  
+plot + geom_violin(mapping = aes(y = studPerf$`math score`))
+
+plot <- ggplot(data = studPerf, mapping = aes(x = studPerf$`parental level of education`))  
+plot + geom_violin(mapping = aes(y = studPerf$`math score`))
 
 
-View(diamonds)
-
-ggplot(diamonds, aes(x=carat, y=price, color=cut)) + 
+ggplot(studPerf, aes(x=studPerf$`parental level of education`, y=studPerf$`math score`, color=gender)) + 
   geom_point() +
-  scale_color_manual(values=c("red", "yellow", "green", "blue", "violet")) + 
-  scale_y_continuous(breaks=c(0,2500,5000,7500,10000,12500,15000,17500),
-                     labels=c(0,2.5,5,7.5,10,12.5,15,17.5),
-                     name="price(thousands of dollars)")
+  scale_color_manual(values=c("green", "red")) + 
+  scale_y_continuous(breaks=c(0,25,50,75,100),
+                     labels=c(0,25,50,75,100),
+                     name="math score")
 
-# From diamonds {ggplot2} documentation:
-#color --> diamond colour, from D (best) to J (worst)
-# clarity --> a measurement of how clear the diamond is (I1 (worst), SI2, SI1, VS2, VS1, VVS2, VVS1, IF (best))
+ggplot(studPerf, aes(x=studPerf$`race/ethnicity`, y=studPerf$`math score`, color=gender)) + 
+  geom_point() +
+  scale_color_manual(values=c("green", "red")) + 
+  scale_y_continuous(breaks=c(0,25,50,75,100),
+                     labels=c(0,25,50,75,100),
+                     name="reading score")
 
-ggplot(diamonds, aes(x=carat, y=price, color=cut)) + 
+ggplot(studPerf, aes(studPerf$`math score`)) + 
+  geom_histogram(binwidth=5, color="gray", aes(fill=gender)) + 
+  xlab("Math Scores") + 
+  ggtitle("Math Scores by Gender")
+
+ggplot(studPerf, aes(studPerf$`reading score`)) + 
+  geom_histogram(binwidth=5, color="gray", aes(fill=gender)) + 
+  xlab("Reading Scores") + 
+  ggtitle("Reading Scores by Gender")
+
+ggplot(studPerf, aes(studPerf$`writing score`)) + 
+  geom_histogram(binwidth=5, color="gray", aes(fill=gender)) + 
+  xlab("Writing Scores") + 
+  ggtitle("Writing Scores by Gender")
+
+
+ggplot(studPerf, aes(x=studPerf$`gender`, y=studPerf$`math score`, color=lunch)) + 
   geom_bin2d() +
-  facet_wrap(~color) +
-  scale_color_manual(values=c("red", "yellow", "green", "blue", "violet")) + 
-  scale_y_continuous(breaks=c(0,2500,5000,7500,10000,12500,15000,17500),
-                     labels=c(0,2.5,5,7.5,10,12.5,15,17.5),
-                     name="price(thousands of dollars)")
+  facet_wrap(vars(studPerf$`parental level of education`)) +
+  scale_color_manual(values=c("green", "red")) +
+  scale_y_continuous(breaks=c(0,25,50,75,100),
+                     labels=c(0,25,50,75,100),
+                     name="math score")
 
-ggplot(diamonds, aes(x=carat, y=price, color=cut)) + 
+ggplot(studPerf, aes(x=studPerf$`gender`, y=studPerf$`writing score`, color=lunch)) + 
+  geom_bin2d() +
+  facet_wrap(vars(studPerf$`parental level of education`)) +
+  scale_color_manual(values=c("green", "red")) +
+  scale_y_continuous(breaks=c(0,25,50,75,100),
+                     labels=c(0,25,50,75,100),
+                     name="writing score")
+
+ggplot(studPerf, aes(x=studPerf$`gender`, y=studPerf$`reading score`, color=lunch)) + 
+  geom_bin2d() +
+  facet_wrap(vars(studPerf$`parental level of education`)) +
+  scale_color_manual(values=c("green", "red")) +
+  scale_y_continuous(breaks=c(0,25,50,75,100),
+                     labels=c(0,25,50,75,100),
+                     name="reading score")
+
+
+ggplot(studPerf, aes(x=studPerf$`math score`, y=studPerf$`reading score`)) +
   geom_density2d() +
-  facet_grid(clarity~color) +
-  scale_color_manual(values=c("red", "yellow", "green", "blue", "violet")) + 
-  scale_y_continuous(breaks=c(0,2500,5000,7500,10000,12500,15000,17500),
-                     labels=c(0,2.5,5,7.5,10,12.5,15,17.5),
-                     name="price(thousands of dollars)")
+  facet_grid(vars(studPerf$`parental level of education`)) +
+  scale_color_manual(values=c("red", "green")) + 
+  scale_y_continuous(breaks=c(0,25,50,75,100),
+                     labels=c(0,25,50,75,100),
+                     name="Reading score")
 
-ggplot(diamonds, aes(x=carat, y=price, color=cut)) + 
+ggplot(studPerf, aes(x=studPerf$`math score`, y=studPerf$`reading score`,color=gender)) +
+  geom_density2d() +
+  facet_grid(vars(studPerf$`parental level of education`)) +
+  scale_color_manual(values=c("red", "green")) + 
+  scale_y_continuous(breaks=c(0,25,50,75,100),
+                     labels=c(0,25,50,75,100),
+                     name="Reading score")
+
+ggplot(studPerf, aes(x=studPerf$`math score`, y=studPerf$`reading score`,color=studPerf$`test preparation course`)) +
+  geom_density2d() +
+  facet_grid(vars(studPerf$`parental level of education`)) +
+  scale_color_manual(values=c("red", "green")) + 
+  scale_y_continuous(breaks=c(0,25,50,75,100),
+                     labels=c(0,25,50,75,100),
+                     name="Reading score")
+
+ggplot(studPerf, aes(x=studPerf$`math score`, y=studPerf$`reading score`,color=gender)) + 
   geom_point() +
-  facet_grid(clarity~color) +
-  scale_color_manual(values=c("red", "yellow", "green", "blue", "violet")) + 
-  scale_y_continuous(breaks=c(0,2500,5000,7500,10000,12500,15000,17500),
-                     labels=c(0,2.5,5,7.5,10,12.5,15,17.5),
-                     name="price(thousands of dollars)")
+  facet_grid(vars(studPerf$`parental level of education`)) +
+  scale_color_manual(values=c("red", "green")) + 
+  scale_y_continuous(breaks=c(0,25,50,75,100),
+                     labels=c(0,25,50,75,100),
+                     name="Reading score")
+
+ggplot(studPerf, aes(x=studPerf$`math score`, y=studPerf$`reading score`,color=studPerf$`test preparation course`)) + 
+  geom_point() +
+  facet_grid(vars(studPerf$`parental level of education`)) +
+  scale_color_manual(values=c("blue", "yellow")) + 
+  scale_y_continuous(breaks=c(0,25,50,75,100),
+                     labels=c(0,25,50,75,100),
+                     name="Reading score")
+
+
+ggplot(studPerf, aes(studPerf$gender, studPerf$`writing score`, color = studPerf$`test preparation course`)) + 
+  geom_boxplot() + 
+  ggtitle("Writing scores by Gender Boxplot") + 
+  xlab("Gender") + 
+  ylab("Writing Scores")
+
+
+ggplot(studPerf, aes(studPerf$gender, studPerf$`reading score`, color = studPerf$`test preparation course`)) + 
+  geom_boxplot() + 
+  ggtitle("REading scores by Gender Boxplot") + 
+  xlab("Gender") + 
+  ylab("Reading Scores")
+
+ggplot(studPerf, aes(studPerf$gender, studPerf$`writing score`, color = studPerf$`test preparation course`)) + 
+  geom_boxplot() + 
+  ggtitle("REading scores by Gender Boxplot") + 
+  xlab("Gender") + 
+  ylab("Writing Scores")
 
 
