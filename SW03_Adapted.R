@@ -1,5 +1,7 @@
 library(ggplot2)
 
+studPerf <- read_csv("C:/Users/Luana/HSLU/DASB/dasb/StudentsPerformance.csv")
+
 View(studPerf)
 
 mathPlot <- ggplot(data = studPerf, mapping = aes(x = studPerf$`math score`))
