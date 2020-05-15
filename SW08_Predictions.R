@@ -5,50 +5,49 @@ library(MASS)
 library(ISLR)
 library(tidyverse)
 
-studPerf <- read_csv("C:/Users/Luana/HSLU/DASB/dasb/StudentsPerformance.csv")
+#LECTURE9 --> exploring how to extend the linear model for forecasting
+library(modelr)
+library(tidyverse)
+studPerf <- read_csv("C:/Users/Luana/HSLU/DASB/dasb/StudentsPerformance.csv",
+                     col_types = cols(gender = col_factor(levels = c("female", "male")), 
+                                      'race/ethnicity' = col_factor(levels = c("group A", "group B", "group C", "group D", "group E")),
+                                      'parental level of education' = col_factor(levels = c("bachelor's degree", "some college", "master's degree", "associate's degree", "high school", "some high school")), 
+                                      lunch = col_factor(levels = c("free/reduced", "standard")),
+                                      'test preparation course' = col_factor(levels = c("none", "completed")),
+                                      'math score' = col_integer(), 
+                                      'reading score' = col_integer(),
+                                      'writing score' = col_integer()))
+
+studPerf <- as.data.frame(studPerf)
+summary(studPerf) # summary
+# There are no NA or missing values
+
+## Replace column names
+colnames(studPerf)
+namesOfColumns <- c("Gender","Race","Parent_Education","Lunch","Test_Prep","Math_Score","Reading_Score","Writing_Score")
+colnames(studPerf) <- namesOfColumns
 
 
-##############   Linear Regression   ##########################
+cor(studPerf$Math_Score,studPerf$Reading_Score,studPerf$Writing_Score)
 
-
-# dataset used
-help(Boston)
-
-
-#Let' have a look at the correlations
-Boston.corr <- cor(Boston)
-
-palette = colorRampPalette(c("green", "white", "red")) (20)
-heatmap(x = Boston.corr, col = palette, symm = TRUE)
-
-
-tbl = table(studPerf) 
-
-chisq.test(tbl) 
-
-
-#Let' have a look at the correlations
-studPerf.corr <- cor(studPerf)
-
-palette = colorRampPalette(c("green", "white", "red")) (20)
-heatmap(x = studPerf.corr, col = palette, symm = TRUE)
-
-#we concentrate on the "medv" as output for the regression
-correlation <- Boston.corr[,'medv']
-col <- colnames(Boston.corr)  
-medv.corr <- tibble(col, correlation)
-
-ggplot(data=medv.corr) + geom_point(aes(x=col, y=correlation)) + geom_hline(yintercept=0, color="blue", size=2)
 
 #strating with the most correlated variable as predictor
-lm1 <- lm(medv~lstat,data=Boston)
+lm1 <- lm(Math_Score~Race+Lunch+Parent_Education+Test_Prep,data=studPerf)
+
 
 lm1
 summary(lm1)
 par(mfrow=c(2,2)); plot(lm1); par(mfrow=c(1,1))
 
-ggplot() + geom_point(data=Boston, aes(x=lstat, y=medv)) + 
+## Bringt das hier eventuell etwas?
+ggplot() + geom_point(data=studPerf, aes(x=Parent_Education, y=Math_Score)) + 
   geom_abline(intercept=coef(lm1)[1], slope=coef(lm1)[2], size=2, color="red", alpha=0.5) 
+
+
+ggplot() + geom_point(data=studPerf, aes(x=Race, y=Math_Score)) + 
+  geom_abline(intercept=coef(lm1)[1], slope=coef(lm1)[2], size=2, color="red", alpha=0.5) 
+
+####CONTINUE HERE
 
 #Let's do some predictions
 idx <- c(0.125, 2.2, 5, 10, 15, 22.75, 30, 37.5, 39.95)

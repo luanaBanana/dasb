@@ -20,7 +20,6 @@ colnames(studPerf)
 namesOfColumns <- c("Gender","Race","Parent_Education","Lunch","Test_Prep","Math_Score","Reading_Score","Writing_Score")
 colnames(studPerf) <- namesOfColumns
 
-#lm.test <- lm(log2(y) ~ sin(x1) + I(cos(sd)^2) + sin(rep), ds_test)
 
 
 ##################### SIM3: Comparison of different models ########################################################
@@ -76,7 +75,7 @@ ggplot(studPerf, aes(Parent_Education, Math_Score, color = Gender, group=1)) +
 mod_indep <- lm(Math_Score ~ Gender + Parent_Education,data=train.data)
 mod_interaction <- lm(Math_Score ~ Gender * Parent_Education + Test_Prep + Lunch + Race,data=train.data)
 
-mod_final <- lm(Math_Score ~ Gender * Parent_Education * Test_Prep + Lunch + Race,data=train.data)
+mod_final <- lm(Math_Score ~ Gender + Parent_Education + Test_Prep + Lunch + Race,data=train.data)
 mod_final2 <- lm(Math_Score ~ Gender * Parent_Education * Test_Prep * Lunch + Race,data=train.data)
 mod_final3 <- lm(Math_Score ~ Gender * Parent_Education * Test_Prep * Lunch * Race,data=train.data)
 mod_final4 <- lm(Math_Score ~ .,data=train.data)
@@ -87,10 +86,9 @@ anova(mod_indep,mod_interaction,mod_final,mod_final2,mod_final3,mod_final4)
 studPred_final <- studPerf %>% data_grid(Gender, Parent_Education, Lunch, Test_Prep, Race) %>%
   gather_predictions(mod_final)
 
-## Wieso wird dies heir mit diesen schrägen Strichen angezeigt?
-ggplot(studPerf, aes(Math_Score, Parent_Education, color = Gender, group=1)) +
+ggplot(studPerf, aes(Parent_Education, Math_Score, color = Gender)) +
   geom_point() +
-  geom_line(data = studPred_final, aes(x = pred)) +
+  geom_line(data = studPred_final, aes(y = pred)) +
   facet_grid(Test_Prep~ model)
 
 anova(mod_parz_Gender,mod_parz_Parent,mod_indep,mod_interaction,mod_final)
