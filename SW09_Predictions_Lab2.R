@@ -119,7 +119,7 @@ ggplot(data=studPerf, mapping=aes(x=Parent_Education,y=Math_Score)) +
 ## Could especially female students perform higher with a completed test course ?
 ggplot(data=studPerf, mapping=aes(x=Race,y=Math_Score)) + 
   geom_point(aes(color=Gender)) + 
-  #facet_wrap(.~Test_Prep) + 
+  facet_wrap(.~Test_Prep) + 
   geom_smooth(method = lm, se = FALSE)
 
 

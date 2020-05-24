@@ -37,10 +37,6 @@ ggplot(data=studPerf, mapping=aes(x=Math_Score,y=Reading_Score))+
   facet_wrap(~Lunch) + 
   geom_smooth(method = lm, se = FALSE)
 
-summary(sim3)
-View(sim3)
-
-
 # for convenient window arrangement in plotting
 library(gridExtra) 
 
@@ -70,7 +66,7 @@ ggplot(studPerf, aes(Parent_Education, Math_Score, color = Gender, group=1)) +
   geom_line(data = studPred, aes(y = pred)) +
   facet_wrap(~ model)
 
-###Analyzing Model Quality ( interaction seems better than summative)
+###Analyzing Model Quality ( summative seems better than interactive )
 
 mod_indep <- lm(Math_Score ~ Gender + Parent_Education,data=train.data)
 mod_interaction <- lm(Math_Score ~ Gender * Parent_Education + Test_Prep + Lunch + Race,data=train.data)
