@@ -19,8 +19,8 @@ More detailed scripts for each topic are described below.
 ### EDA
 
 EDA can be found in the files: 
--[SW02_EDA.R](./SW02_EDA.R) and 
--[SW03_EDA.R](./SW03_EDA.R)
+- [SW02_EDA.R](./SW02_EDA.R)
+- [SW03_EDA.R](./SW03_EDA.R)
 
 ### Modelling / Prediction
 
