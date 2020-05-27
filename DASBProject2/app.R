@@ -1,10 +1,5 @@
 #
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
+# Student Exam Marks Shiny App
 #
 
 library(shiny)
@@ -24,7 +19,7 @@ ui <- fluidPage(
     # Show a plot of the generated distribution
     mainPanel(
         tabsetPanel(
-            tabPanel("Scoreprediction", 
+            tabPanel("Score Prediction", 
                 
                 selectInput(inputId = "parentEducation", label = "Choose your parents education", choices =  
                                 c("associate's degree", "some college", "high school", "some high school", "bachelor's degree", "master's degree")),
@@ -41,7 +36,7 @@ ui <- fluidPage(
             tabPanel("Summary",                 selectInput(inputId = "type", label = "Which summary would you like to see", choices = c("writing", "reading", "maths")),
                 plotOutput("marksummary")), 
             
-            tabPanel("Parenteducation", 
+            tabPanel("Parent Education", 
                 selectInput(inputId = "parentEducation2", label = "Choose your parents education", choices =  
                                      c("associate's degree", "some college", "high school", "some high school", "bachelor's degree", "master's degree")),
                 selectInput(inputId = "parentEducation3", label = "Choose your parents education", choices =  
@@ -90,9 +85,9 @@ server <- function(input, output) {
         # plot the result
         ggplot(filterStudPerf, aes(filterStudPerf$`parental level of education`, filterStudPerf$`score`, color = filterStudPerf$`parental level of education`)) + 
             geom_boxplot() + 
-            ggtitle("Writing scores by Gender Boxplot") + 
-            xlab("Gender") + 
-            ylab("Writing Scores")
+            ggtitle("Scores by parental education Boxplot") + 
+            xlab("Parent Education") + 
+            ylab("Scores")
     })
 
 }
