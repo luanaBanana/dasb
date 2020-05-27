@@ -5,7 +5,7 @@
 #LECTURE9 --> exploring how to extend the linear model for forecasting
 library(modelr)
 library(tidyverse)
-studPerf <- read_csv("C:/Users/Luana/HSLU/DASB/dasb/StudentsPerformance.csv",
+studPerf <- read_csv("./StudentsPerformance.csv",
                      col_types = cols(gender = col_factor(levels = c("female", "male")), 
                                       'race/ethnicity' = col_factor(levels = c("group A", "group B", "group C", "group D", "group E")),
                                       'parental level of education' = col_factor(levels = c("bachelor's degree", "some college", "master's degree", "associate's degree", "high school", "some high school")), 
@@ -17,7 +17,9 @@ studPerf <- read_csv("C:/Users/Luana/HSLU/DASB/dasb/StudentsPerformance.csv",
 
 studPerf <- as.data.frame(studPerf)
 summary(studPerf) # summary
-# There are no NA or missing values
+studPerf <- as_tibble(studPerf)
+studPerf <- mutate(studPerf, totalScore = studPerf$Math_Score+studPerf$Reading_Score+studPerf$Writing_Score)
+
 
 ## Replace column names
 colnames(studPerf)
