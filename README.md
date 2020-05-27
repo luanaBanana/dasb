@@ -35,23 +35,20 @@ Modelling and prediction Code can be found within the files
 
 Graphs can be found throughout the whole project.
 
-### Shiny App
+## Shiny App
 
-The Shiny App can be found in the [Shiny App folder](./ShinyApp)
+The Shiny App can be found as an [R Project by itself](./ShinyApp)
+Make sure to open it as a separate project.
 
-You can run the shiny app by following these steps
-- Firstly run [the helper script](./ShinyApp/Helper.R) which contains the model.
-- Then run [the app](app.R).
-
-#### Score Prediction
+### Score Prediction
 
 In the first tab "Score Prediction" you can choose the input factors and predict your score dependently. You can try to find the input factors for the maximal score.
 
-#### Summary
+### Summary
 
 The second tab "summary" shows the boxplot of the choosable reading, writing and math scores depending on test preparation and gender. Other factors could be chosen here too, we decided to limit this example to "test preparation" and "gender".
 
-#### Compare Parental Education
+### Compare Parental Education
 
 The third and last tab gives the possibility to directly compare factors and their avarage score with the help of a box plot. 
 Other factors could be chosen here too, we decided to limit this example to the parental education level.
