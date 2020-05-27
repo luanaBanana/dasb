@@ -13,7 +13,8 @@ Each file contains the needed installations, imports and relative path to the da
 
 ### Overview
 
-An overview containing EDA, Modelling and Prediction can be found [here](./Overview.R)
+An overview containing EDA, Modelling and Prediction can be found [here](./Overview.R).
+
 More detailed scripts for each topic are described below.
 
 ### EDA
@@ -37,7 +38,8 @@ Graphs can be found throughout the whole project.
 
 ## Shiny App
 
-The Shiny App can be found as an [R Project by itself](./ShinyApp)
+The Shiny App can be found as an [R Project by itself](./ShinyApp).
+
 Make sure to open it as a separate project.
 
 ### Score Prediction
