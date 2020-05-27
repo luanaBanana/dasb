@@ -36,7 +36,7 @@ ui <- fluidPage(
             tabPanel("Summary",                 selectInput(inputId = "type", label = "Which summary would you like to see", choices = c("writing", "reading", "maths")),
                 plotOutput("marksummary")), 
             
-            tabPanel("Comparing Parental Education", 
+            tabPanel("Compare Parental Education", 
                 selectInput(inputId = "parentEducation2", label = "Choose your parents education", choices =  
                                      c("associate's degree", "some college", "high school", "some high school", "bachelor's degree", "master's degree")),
                 selectInput(inputId = "parentEducation3", label = "Choose your parents education", choices =  
